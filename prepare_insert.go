@@ -9,6 +9,7 @@ import (
 )
 
 func CreateModel(
+	contentType string,
 	title string,
 	subtitle *string,
 	detail *string,
@@ -18,10 +19,11 @@ func CreateModel(
 	log.Print("Content:CreateModel")
 
 	return &models.Content{
-		Title:    title,
-		Subtitle: null.StringFromPtr(subtitle),
-		Detail:   null.StringFromPtr(detail),
-		StartAt:  null.TimeFromPtr(startAt),
-		EndAt:    null.TimeFromPtr(endAt),
+		ContentType: contentType,
+		Title:       title,
+		Subtitle:    null.StringFromPtr(subtitle),
+		Detail:      null.StringFromPtr(detail),
+		StartAt:     null.TimeFromPtr(startAt),
+		EndAt:       null.TimeFromPtr(endAt),
 	}
 }

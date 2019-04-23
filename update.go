@@ -24,3 +24,16 @@ func Update(
 	count, err := content.Update(ctx, exec, columns)
 	return int(count), err
 }
+
+func UpdateInfer(ctx context.Context,
+	exec boil.ContextExecutor,
+	content *models.Content,
+) (int, error) {
+	log.Print("Content:UpdateInfer")
+	if content == nil {
+		return 0, errors.New(contentIsNil)
+	}
+
+	count, err := content.Update(ctx, exec, boil.Infer())
+	return int(count), err
+}
