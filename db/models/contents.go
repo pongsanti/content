@@ -31,6 +31,8 @@ type Content struct {
 	Title     string      `boil:"title" json:"title" toml:"title" yaml:"title"`
 	Subtitle  null.String `boil:"subtitle" json:"subtitle,omitempty" toml:"subtitle" yaml:"subtitle,omitempty"`
 	Detail    null.String `boil:"detail" json:"detail,omitempty" toml:"detail" yaml:"detail,omitempty"`
+	StartAt   null.Time   `boil:"start_at" json:"start_at,omitempty" toml:"start_at" yaml:"start_at,omitempty"`
+	EndAt     null.Time   `boil:"end_at" json:"end_at,omitempty" toml:"end_at" yaml:"end_at,omitempty"`
 
 	R *contentR `boil:"-" json:"-" toml:"-" yaml:"-"`
 	L contentL  `boil:"-" json:"-" toml:"-" yaml:"-"`
@@ -44,6 +46,8 @@ var ContentColumns = struct {
 	Title     string
 	Subtitle  string
 	Detail    string
+	StartAt   string
+	EndAt     string
 }{
 	ID:        "id",
 	CreatedAt: "created_at",
@@ -52,6 +56,8 @@ var ContentColumns = struct {
 	Title:     "title",
 	Subtitle:  "subtitle",
 	Detail:    "detail",
+	StartAt:   "start_at",
+	EndAt:     "end_at",
 }
 
 // Generated where
@@ -128,6 +134,8 @@ var ContentWhere = struct {
 	Title     whereHelperstring
 	Subtitle  whereHelpernull_String
 	Detail    whereHelpernull_String
+	StartAt   whereHelpernull_Time
+	EndAt     whereHelpernull_Time
 }{
 	ID:        whereHelperint{field: `id`},
 	CreatedAt: whereHelpernull_Time{field: `created_at`},
@@ -136,6 +144,8 @@ var ContentWhere = struct {
 	Title:     whereHelperstring{field: `title`},
 	Subtitle:  whereHelpernull_String{field: `subtitle`},
 	Detail:    whereHelpernull_String{field: `detail`},
+	StartAt:   whereHelpernull_Time{field: `start_at`},
+	EndAt:     whereHelpernull_Time{field: `end_at`},
 }
 
 // ContentRels is where relationship names are stored.
@@ -155,8 +165,8 @@ func (*contentR) NewStruct() *contentR {
 type contentL struct{}
 
 var (
-	contentColumns               = []string{"id", "created_at", "updated_at", "deleted_at", "title", "subtitle", "detail"}
-	contentColumnsWithoutDefault = []string{"created_at", "updated_at", "deleted_at", "title", "subtitle", "detail"}
+	contentColumns               = []string{"id", "created_at", "updated_at", "deleted_at", "title", "subtitle", "detail", "start_at", "end_at"}
+	contentColumnsWithoutDefault = []string{"created_at", "updated_at", "deleted_at", "title", "subtitle", "detail", "start_at", "end_at"}
 	contentColumnsWithDefault    = []string{"id"}
 	contentPrimaryKeyColumns     = []string{"id"}
 )

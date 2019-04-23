@@ -7,7 +7,9 @@ CREATE TABLE contents (
   deleted_at timestamp with time zone,
   title text NOT NULL,
   subtitle text,
-  detail text
+  detail text,
+  start_at timestamp with time zone,
+  end_at timestamp with time zone
 );
 
 -- +goose Down
