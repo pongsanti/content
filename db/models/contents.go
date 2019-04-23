@@ -24,40 +24,46 @@ import (
 
 // Content is an object representing the database table.
 type Content struct {
-	ID        int         `boil:"id" json:"id" toml:"id" yaml:"id"`
-	CreatedAt null.Time   `boil:"created_at" json:"created_at,omitempty" toml:"created_at" yaml:"created_at,omitempty"`
-	UpdatedAt null.Time   `boil:"updated_at" json:"updated_at,omitempty" toml:"updated_at" yaml:"updated_at,omitempty"`
-	DeletedAt null.Time   `boil:"deleted_at" json:"deleted_at,omitempty" toml:"deleted_at" yaml:"deleted_at,omitempty"`
-	Title     string      `boil:"title" json:"title" toml:"title" yaml:"title"`
-	Subtitle  null.String `boil:"subtitle" json:"subtitle,omitempty" toml:"subtitle" yaml:"subtitle,omitempty"`
-	Detail    null.String `boil:"detail" json:"detail,omitempty" toml:"detail" yaml:"detail,omitempty"`
-	StartAt   null.Time   `boil:"start_at" json:"start_at,omitempty" toml:"start_at" yaml:"start_at,omitempty"`
-	EndAt     null.Time   `boil:"end_at" json:"end_at,omitempty" toml:"end_at" yaml:"end_at,omitempty"`
+	ID          int         `boil:"id" json:"id" toml:"id" yaml:"id"`
+	CreatedAt   null.Time   `boil:"created_at" json:"created_at,omitempty" toml:"created_at" yaml:"created_at,omitempty"`
+	UpdatedAt   null.Time   `boil:"updated_at" json:"updated_at,omitempty" toml:"updated_at" yaml:"updated_at,omitempty"`
+	DeletedAt   null.Time   `boil:"deleted_at" json:"deleted_at,omitempty" toml:"deleted_at" yaml:"deleted_at,omitempty"`
+	ContentType string      `boil:"content_type" json:"content_type" toml:"content_type" yaml:"content_type"`
+	Title       string      `boil:"title" json:"title" toml:"title" yaml:"title"`
+	Subtitle    null.String `boil:"subtitle" json:"subtitle,omitempty" toml:"subtitle" yaml:"subtitle,omitempty"`
+	Detail      null.String `boil:"detail" json:"detail,omitempty" toml:"detail" yaml:"detail,omitempty"`
+	StartAt     null.Time   `boil:"start_at" json:"start_at,omitempty" toml:"start_at" yaml:"start_at,omitempty"`
+	EndAt       null.Time   `boil:"end_at" json:"end_at,omitempty" toml:"end_at" yaml:"end_at,omitempty"`
+	CreatorID   null.Int    `boil:"creator_id" json:"creator_id,omitempty" toml:"creator_id" yaml:"creator_id,omitempty"`
 
 	R *contentR `boil:"-" json:"-" toml:"-" yaml:"-"`
 	L contentL  `boil:"-" json:"-" toml:"-" yaml:"-"`
 }
 
 var ContentColumns = struct {
-	ID        string
-	CreatedAt string
-	UpdatedAt string
-	DeletedAt string
-	Title     string
-	Subtitle  string
-	Detail    string
-	StartAt   string
-	EndAt     string
+	ID          string
+	CreatedAt   string
+	UpdatedAt   string
+	DeletedAt   string
+	ContentType string
+	Title       string
+	Subtitle    string
+	Detail      string
+	StartAt     string
+	EndAt       string
+	CreatorID   string
 }{
-	ID:        "id",
-	CreatedAt: "created_at",
-	UpdatedAt: "updated_at",
-	DeletedAt: "deleted_at",
-	Title:     "title",
-	Subtitle:  "subtitle",
-	Detail:    "detail",
-	StartAt:   "start_at",
-	EndAt:     "end_at",
+	ID:          "id",
+	CreatedAt:   "created_at",
+	UpdatedAt:   "updated_at",
+	DeletedAt:   "deleted_at",
+	ContentType: "content_type",
+	Title:       "title",
+	Subtitle:    "subtitle",
+	Detail:      "detail",
+	StartAt:     "start_at",
+	EndAt:       "end_at",
+	CreatorID:   "creator_id",
 }
 
 // Generated where
@@ -126,26 +132,53 @@ func (w whereHelpernull_String) GTE(x null.String) qm.QueryMod {
 	return qmhelper.Where(w.field, qmhelper.GTE, x)
 }
 
+type whereHelpernull_Int struct{ field string }
+
+func (w whereHelpernull_Int) EQ(x null.Int) qm.QueryMod {
+	return qmhelper.WhereNullEQ(w.field, false, x)
+}
+func (w whereHelpernull_Int) NEQ(x null.Int) qm.QueryMod {
+	return qmhelper.WhereNullEQ(w.field, true, x)
+}
+func (w whereHelpernull_Int) IsNull() qm.QueryMod    { return qmhelper.WhereIsNull(w.field) }
+func (w whereHelpernull_Int) IsNotNull() qm.QueryMod { return qmhelper.WhereIsNotNull(w.field) }
+func (w whereHelpernull_Int) LT(x null.Int) qm.QueryMod {
+	return qmhelper.Where(w.field, qmhelper.LT, x)
+}
+func (w whereHelpernull_Int) LTE(x null.Int) qm.QueryMod {
+	return qmhelper.Where(w.field, qmhelper.LTE, x)
+}
+func (w whereHelpernull_Int) GT(x null.Int) qm.QueryMod {
+	return qmhelper.Where(w.field, qmhelper.GT, x)
+}
+func (w whereHelpernull_Int) GTE(x null.Int) qm.QueryMod {
+	return qmhelper.Where(w.field, qmhelper.GTE, x)
+}
+
 var ContentWhere = struct {
-	ID        whereHelperint
-	CreatedAt whereHelpernull_Time
-	UpdatedAt whereHelpernull_Time
-	DeletedAt whereHelpernull_Time
-	Title     whereHelperstring
-	Subtitle  whereHelpernull_String
-	Detail    whereHelpernull_String
-	StartAt   whereHelpernull_Time
-	EndAt     whereHelpernull_Time
+	ID          whereHelperint
+	CreatedAt   whereHelpernull_Time
+	UpdatedAt   whereHelpernull_Time
+	DeletedAt   whereHelpernull_Time
+	ContentType whereHelperstring
+	Title       whereHelperstring
+	Subtitle    whereHelpernull_String
+	Detail      whereHelpernull_String
+	StartAt     whereHelpernull_Time
+	EndAt       whereHelpernull_Time
+	CreatorID   whereHelpernull_Int
 }{
-	ID:        whereHelperint{field: `id`},
-	CreatedAt: whereHelpernull_Time{field: `created_at`},
-	UpdatedAt: whereHelpernull_Time{field: `updated_at`},
-	DeletedAt: whereHelpernull_Time{field: `deleted_at`},
-	Title:     whereHelperstring{field: `title`},
-	Subtitle:  whereHelpernull_String{field: `subtitle`},
-	Detail:    whereHelpernull_String{field: `detail`},
-	StartAt:   whereHelpernull_Time{field: `start_at`},
-	EndAt:     whereHelpernull_Time{field: `end_at`},
+	ID:          whereHelperint{field: `id`},
+	CreatedAt:   whereHelpernull_Time{field: `created_at`},
+	UpdatedAt:   whereHelpernull_Time{field: `updated_at`},
+	DeletedAt:   whereHelpernull_Time{field: `deleted_at`},
+	ContentType: whereHelperstring{field: `content_type`},
+	Title:       whereHelperstring{field: `title`},
+	Subtitle:    whereHelpernull_String{field: `subtitle`},
+	Detail:      whereHelpernull_String{field: `detail`},
+	StartAt:     whereHelpernull_Time{field: `start_at`},
+	EndAt:       whereHelpernull_Time{field: `end_at`},
+	CreatorID:   whereHelpernull_Int{field: `creator_id`},
 }
 
 // ContentRels is where relationship names are stored.
@@ -165,9 +198,9 @@ func (*contentR) NewStruct() *contentR {
 type contentL struct{}
 
 var (
-	contentColumns               = []string{"id", "created_at", "updated_at", "deleted_at", "title", "subtitle", "detail", "start_at", "end_at"}
-	contentColumnsWithoutDefault = []string{"created_at", "updated_at", "deleted_at", "title", "subtitle", "detail", "start_at", "end_at"}
-	contentColumnsWithDefault    = []string{"id"}
+	contentColumns               = []string{"id", "created_at", "updated_at", "deleted_at", "content_type", "title", "subtitle", "detail", "start_at", "end_at", "creator_id"}
+	contentColumnsWithoutDefault = []string{"created_at", "updated_at", "deleted_at", "title", "subtitle", "detail", "start_at", "end_at", "creator_id"}
+	contentColumnsWithDefault    = []string{"id", "content_type"}
 	contentPrimaryKeyColumns     = []string{"id"}
 )
 
