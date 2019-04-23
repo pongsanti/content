@@ -2,7 +2,6 @@ package content
 
 import (
 	"context"
-	"errors"
 	"log"
 
 	"github.com/pongsanti/content/db/models"
@@ -14,7 +13,7 @@ func Delete(ctx context.Context,
 	content *models.Content) (int, error) {
 	log.Print("Content:Delete")
 	if content == nil {
-		return 0, errors.New(contentIsNil)
+		return 0, errContentIsNil
 	}
 
 	count, err := content.Delete(ctx, exec)

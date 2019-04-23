@@ -1,6 +1,7 @@
 package response
 
 import (
+	"log"
 	"time"
 
 	"github.com/pongsanti/content/db/models"
@@ -16,6 +17,7 @@ type Content struct {
 }
 
 func NewContent(c *models.Content) *Content {
+	log.Print("Content:NewContent")
 	if c == nil {
 		return nil
 	}
@@ -31,6 +33,7 @@ func NewContent(c *models.Content) *Content {
 }
 
 func NewContents(cts models.ContentSlice) []*Content {
+	log.Print("Content:NewContents")
 	if cts == nil {
 		return nil
 	}

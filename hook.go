@@ -2,6 +2,7 @@ package content
 
 import (
 	"context"
+	"log"
 
 	"github.com/pongsanti/content/db/models"
 	"github.com/volatiletech/null"
@@ -22,5 +23,6 @@ func createBeforeInsertHookFunc(contextKey uint) func(context.Context, boil.Cont
 	RegisterBeforeInsertHook receives contextKey of the creator id
 */
 func RegisterBeforeInsertHook(contextKey uint) {
+	log.Print("Content:RegisterBeforeInsertHook")
 	models.AddContentHook(boil.BeforeInsertHook, createBeforeInsertHookFunc(contextKey))
 }

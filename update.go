@@ -2,7 +2,6 @@ package content
 
 import (
 	"context"
-	"errors"
 	"log"
 
 	"github.com/pongsanti/content/db/models"
@@ -18,7 +17,7 @@ func Update(
 ) (int, error) {
 	log.Print("Content:Update")
 	if content == nil {
-		return 0, errors.New(contentIsNil)
+		return 0, errContentIsNil
 	}
 
 	count, err := content.Update(ctx, exec, columns)
@@ -31,7 +30,7 @@ func UpdateInfer(ctx context.Context,
 ) (int, error) {
 	log.Print("Content:UpdateInfer")
 	if content == nil {
-		return 0, errors.New(contentIsNil)
+		return 0, errContentIsNil
 	}
 
 	count, err := content.Update(ctx, exec, boil.Infer())

@@ -2,7 +2,6 @@ package content
 
 import (
 	"context"
-	"errors"
 	"log"
 
 	"github.com/pongsanti/content/db/models"
@@ -16,7 +15,7 @@ func Insert(
 ) error {
 	log.Print("Content:Insert")
 	if content == nil {
-		return errors.New(contentIsNil)
+		return errContentIsNil
 	}
 
 	return content.Insert(ctx, exec, boil.Infer())
