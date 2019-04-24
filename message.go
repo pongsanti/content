@@ -6,4 +6,3 @@ var contentIsNil = "Content is null"
 var noQueries = "No queries"
 
 var errContentIsNil = errors.New(contentIsNil)
-var errNoQueries = errors.New(noQueries)
