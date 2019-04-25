@@ -34,6 +34,9 @@ type Content struct {
 	Detail      null.String `boil:"detail" json:"detail,omitempty" toml:"detail" yaml:"detail,omitempty"`
 	StartAt     null.Time   `boil:"start_at" json:"start_at,omitempty" toml:"start_at" yaml:"start_at,omitempty"`
 	EndAt       null.Time   `boil:"end_at" json:"end_at,omitempty" toml:"end_at" yaml:"end_at,omitempty"`
+	Status      null.String `boil:"status" json:"status,omitempty" toml:"status" yaml:"status,omitempty"`
+	Xtime1      null.Time   `boil:"xtime1" json:"xtime1,omitempty" toml:"xtime1" yaml:"xtime1,omitempty"`
+	Xtext1      null.String `boil:"xtext1" json:"xtext1,omitempty" toml:"xtext1" yaml:"xtext1,omitempty"`
 	CreatorID   null.Int    `boil:"creator_id" json:"creator_id,omitempty" toml:"creator_id" yaml:"creator_id,omitempty"`
 
 	R *contentR `boil:"-" json:"-" toml:"-" yaml:"-"`
@@ -51,6 +54,9 @@ var ContentColumns = struct {
 	Detail      string
 	StartAt     string
 	EndAt       string
+	Status      string
+	Xtime1      string
+	Xtext1      string
 	CreatorID   string
 }{
 	ID:          "id",
@@ -63,6 +69,9 @@ var ContentColumns = struct {
 	Detail:      "detail",
 	StartAt:     "start_at",
 	EndAt:       "end_at",
+	Status:      "status",
+	Xtime1:      "xtime1",
+	Xtext1:      "xtext1",
 	CreatorID:   "creator_id",
 }
 
@@ -166,6 +175,9 @@ var ContentWhere = struct {
 	Detail      whereHelpernull_String
 	StartAt     whereHelpernull_Time
 	EndAt       whereHelpernull_Time
+	Status      whereHelpernull_String
+	Xtime1      whereHelpernull_Time
+	Xtext1      whereHelpernull_String
 	CreatorID   whereHelpernull_Int
 }{
 	ID:          whereHelperint{field: `id`},
@@ -178,6 +190,9 @@ var ContentWhere = struct {
 	Detail:      whereHelpernull_String{field: `detail`},
 	StartAt:     whereHelpernull_Time{field: `start_at`},
 	EndAt:       whereHelpernull_Time{field: `end_at`},
+	Status:      whereHelpernull_String{field: `status`},
+	Xtime1:      whereHelpernull_Time{field: `xtime1`},
+	Xtext1:      whereHelpernull_String{field: `xtext1`},
 	CreatorID:   whereHelpernull_Int{field: `creator_id`},
 }
 
@@ -198,8 +213,8 @@ func (*contentR) NewStruct() *contentR {
 type contentL struct{}
 
 var (
-	contentColumns               = []string{"id", "created_at", "updated_at", "deleted_at", "content_type", "title", "subtitle", "detail", "start_at", "end_at", "creator_id"}
-	contentColumnsWithoutDefault = []string{"created_at", "updated_at", "deleted_at", "title", "subtitle", "detail", "start_at", "end_at", "creator_id"}
+	contentColumns               = []string{"id", "created_at", "updated_at", "deleted_at", "content_type", "title", "subtitle", "detail", "start_at", "end_at", "status", "xtime1", "xtext1", "creator_id"}
+	contentColumnsWithoutDefault = []string{"created_at", "updated_at", "deleted_at", "title", "subtitle", "detail", "start_at", "end_at", "status", "xtime1", "xtext1", "creator_id"}
 	contentColumnsWithDefault    = []string{"id", "content_type"}
 	contentPrimaryKeyColumns     = []string{"id"}
 )

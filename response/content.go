@@ -8,12 +8,14 @@ import (
 )
 
 type Content struct {
-	ID       int
-	Title    string
-	Subtitle *string
-	Detail   *string
-	StartAt  *time.Time
-	EndAt    *time.Time
+	ID        int
+	Title     string
+	Subtitle  *string
+	Detail    *string
+	StartAt   *time.Time
+	EndAt     *time.Time
+	Status    *string
+	CreatedAt *time.Time
 }
 
 func NewContent(c *models.Content) *Content {
@@ -23,12 +25,14 @@ func NewContent(c *models.Content) *Content {
 	}
 
 	return &Content{
-		ID:       c.ID,
-		Title:    c.Title,
-		Subtitle: c.Subtitle.Ptr(),
-		Detail:   c.Detail.Ptr(),
-		StartAt:  c.StartAt.Ptr(),
-		EndAt:    c.EndAt.Ptr(),
+		ID:        c.ID,
+		Title:     c.Title,
+		Subtitle:  c.Subtitle.Ptr(),
+		Detail:    c.Detail.Ptr(),
+		StartAt:   c.StartAt.Ptr(),
+		EndAt:     c.EndAt.Ptr(),
+		Status:    c.Status.Ptr(),
+		CreatedAt: c.CreatedAt.Ptr(),
 	}
 }
 

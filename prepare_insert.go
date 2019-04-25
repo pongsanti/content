@@ -15,6 +15,9 @@ func CreateModel(
 	detail *string,
 	startAt *time.Time,
 	endAt *time.Time,
+	status *string,
+	xtime1 *time.Time,
+	xtext1 *string,
 ) *models.Content {
 	log.Print("Content:CreateModel")
 
@@ -25,5 +28,8 @@ func CreateModel(
 		Detail:      null.StringFromPtr(detail),
 		StartAt:     null.TimeFromPtr(startAt),
 		EndAt:       null.TimeFromPtr(endAt),
+		Status:      null.StringFromPtr(status),
+		Xtime1:      null.TimeFromPtr(xtime1),
+		Xtext1:      null.StringFromPtr(xtext1),
 	}
 }

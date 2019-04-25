@@ -11,6 +11,9 @@ CREATE TABLE contents (
   detail text,
   start_at timestamp with time zone,
   end_at timestamp with time zone,
+  status text,
+  xtime1 timestamp with time zone,
+  xtext1 text,
   creator_id integer
 );
 
